@@ -1,0 +1,21 @@
+#root {
+  width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+.style-name {
+  padding: 10px;
+  background-color: #8c30c5;
+  color: #fcf9fd;
+  text-align: end;
+  margin-bottom: 20px;
+}
+.style-input {
+  height: 25px;
+  border-radius: 5px;
+  background-color: #efefef;
+  color: #767676;
+  margin-left: 10px;
+  width: 300px;
+}
