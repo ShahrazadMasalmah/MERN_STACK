@@ -1,0 +1,87 @@
+1)Create a database called 'my_first_db':
+-------------------------------------------------
+use my_first_db
+--------------------------------------------------
+2)Create students collection:
+-------------------------------------------------------
+db.createCollection("students")
+--------------------------------------------------------
+3)Each document you insert into this collection should have the following format: ({name: STRING, home_state: 
+STRING, lucky_number: NUMBER, birthday: {month: NUMBER, day: NUMBER, year: NUMBER}})
+4)Create 5 students with the appropriate info.
+----------------------------------------------------------------
+db.students.insertOne({name: "Amr", home_state: "Colmbia", lucky_number: 2, birthday: {month: 2, day: 12, year: 1987}})
+db.students.insertOne({name: "Aya", home_state: "Rome", lucky_number: 5, birthday: {month: 5, day: 20, year: 2000}})
+db.students.insertOne({name: "Wael", home_state: "Ramallah", lucky_number: 9, birthday: {month: 3, day: 06, year: 1990}})
+db.students.insertOne({name: "Qamar", home_state: "Madrid", lucky_number: 11, birthday: {month: 7, day: 25, year: 1980}})
+db.students.insertOne({name: "Eman", home_state: "London", lucky_number: 1, birthday: {month: 10, day: 30, year: 1999}})
+------------------------------------------------------------------
+5)Get all students.
+--------------------------------------------
+db.students.find()
+---------------------------------------------
+6)Retrieve all students who are from California (San Jose Dojo) or Washington (Seattle Dojo).
+------------------------------------------------------------
+db.students.find({home_state: "California"})
+--------------------------------------------------------------
+7)Get all students whose lucky number is greater than 3:
+-------------------------------------------------------------
+db.students.find({lucky_number: {$gt: 3}})
+--------------------------------------------------------------
+8)Add a field to each student collection called 'interests' that is an ARRAY. It should contain the following
+entries: 'coding', 'brunch', 'MongoDB'. Do this in ONE operation.
+9)Add some unique interests for each particular student into each of their interest arrays.
+-------------------------------------------------------------------------
+db.students.updateOne({_id: ObjectId("65cdf572c53454f372b7fad8")}, {$push: {interests: "coding"}})
+db.students.updateOne({_id: ObjectId("65cdf572c53454f372b7fad8")}, {$push: {interests: "brunch"}})
+db.students.updateOne({_id: ObjectId("65cdf572c53454f372b7fad8")}, {$push: {interests: "MongoDB"}})
+
+db.students.updateOne({_id: ObjectId("65cdf69ac53454f372b7fad9")}, {$push: {interests: "games"}})
+db.students.updateOne({_id: ObjectId("65cdf69ac53454f372b7fad9")}, {$push: {interests: "movies"}})
+db.students.updateOne({_id: ObjectId("65cdf69ac53454f372b7fad9")}, {$push: {interests: "travel"}})
+
+db.students.updateOne({_id: ObjectId("65cdf730c53454f372b7fada")}, {$push: {interests: "python"}})
+db.students.updateOne({_id: ObjectId("65cdf730c53454f372b7fada")}, {$push: {interests: "SQL"}})
+db.students.updateOne({_id: ObjectId("65cdf730c53454f372b7fada")}, {$push: {interests: "Hosting"}})
+
+db.students.updateOne({_id: ObjectId("65cdf7d9c53454f372b7fadb")}, {$push: {interests: "travel"}})
+db.students.updateOne({_id: ObjectId("65cdf7d9c53454f372b7fadb")}, {$push: {interests: "JAVA"}})
+db.students.updateOne({_id: ObjectId("65cdf7d9c53454f372b7fadb")}, {$push: {interests: "playing"}})
+
+db.students.updateOne({_id: ObjectId("65cdf862c53454f372b7fadc")}, {$push: {interests: "hiking"}})
+db.students.updateOne({_id: ObjectId("65cdf862c53454f372b7fadc")}, {$push: {interests: "jumping"}})
+db.students.updateOne({_id: ObjectId("65cdf862c53454f372b7fadc")}, {$push: {interests: "react"}})
+---------------------------------------------------------------------------------------------------------
+10)Add the interest 'taxes' into someone's interest array.
+----------------------------------------------------------------------------------------
+db.students.updateOne({_id: ObjectId("65cdf862c53454f372b7fadc")}, {$push: {interests: "taxes"}})
+------------------------------------------------------------------------------------
+11)Remove the 'taxes' interest you just added.
+------------------------------------------------------------------------------------
+db.students.updateOne({_id: ObjectId("65cdf862c53454f372b7fadc")}, {$pull: {interests: "taxes"}})
+--------------------------------------------------------------------------------------
+12)Remove all students who are from California.
+-------------------------------------------------------------------------------------
+db.students.remove({home_state: "California"})
+------------------------------------------------------------------------------------------
+13)Remove a student by name.
+-----------------------------------------------------------------------------
+db.students.deleteOne({name: "Qamar"})
+--------------------------------------------------------------------------------
+14)Remove a student whose lucky number is greater than 5 (JUST ONE)
+-------------------------------------------------------------------------------
+db.students.findOneAndDelete({lucky_number: {$gt: 5}})
+-------------------------------------------------------------------------------
+15)Add a field to each student collection called 'number_of_belts' and set it to 0.
+------------------------------------------------------------------------------------
+db.students.updateOne({_id: ObjectId("65cdf69ac53454f372b7fad9")}, {$set: {number_of_belts: 0}})
+db.students.updateOne({_id: ObjectId("65cdf862c53454f372b7fadc")}, {$set: {number_of_belts: 0}})
+---------------------------------------------------------------------------------------
+16)Increment this field by 1 for all students in Washington (Seattle Dojo).
+------------------------------------------------------------------------------------
+db.students.updateOne({home_state: "Washington"}, {$inc: {number_of_belts: 1}})
+-----------------------------------------------------------------------------------
+17)Add a 'updated_on' field, and set the value as the current date.
+----------------------------------------------------------------------------------------------
+db.students.updateOne({_id: ObjectId("65cdf862c53454f372b7fadc")}, {$currentDate: {updated_on: true}})
+db.students.updateOne({_id: ObjectId("65cdf69ac53454f372b7fad9")}, {$currentDate: {updated_on: true}})
